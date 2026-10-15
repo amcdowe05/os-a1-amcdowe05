@@ -1,6 +1,8 @@
 #define SBRK_ERROR ((char *)-1)
 
 struct stat;
+struct sysinfo;
+struct uproc;
 
 // system calls
 int trace(int);
@@ -26,7 +28,8 @@ char *sys_sbrk(int, int);
 int pause(int);
 int uptime(void);
 int sync(void);
-
+int sysinfo(struct sysinfo *);
+int getprocs(struct uproc *, int);
 // ulib.c
 int stat(const char *, struct stat *);
 char *strcpy(char *, const char *);

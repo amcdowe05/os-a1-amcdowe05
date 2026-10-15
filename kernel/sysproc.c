@@ -6,6 +6,42 @@
 #include "spinlock.h"
 #include "proc.h"
 #include "vm.h"
+#include "sysinfo.h"
+#include "unproc.h"
+
+uint64
+sys_getprocs(void){
+    uint64 buf;
+    int max;
+
+    if(argaddr(0, &buf) < 0)
+        return -1;
+
+    if(argint(1, &max) < 0)
+        return -1;
+
+    return getprocs(buf, max);
+
+}
+
+uint64
+sys_sysinfo(void){
+  uint64 addr;
+  struct sysinfo info;
+  if(argaddr(0, &addr) < 0)
+    return -1;
+
+  info.freemem = freemem();
+  info.nproc = nproc();
+  info.nopenfile = nopenfile();
+
+  if(copyout(myproc()->pagetable, addr, (char *)&info, sizeof(info)) < 0)
+    return -1;
+
+
+  return 0;
+
+}
 
 uint64
 sys_exit(void)

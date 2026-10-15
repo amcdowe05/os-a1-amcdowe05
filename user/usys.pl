@@ -21,6 +21,8 @@ sub entry {
     print " ret\n";
 }
 
+entry("getprocs");
+entry("sysinfo");
 entry("trace");	
 entry("fork");
 entry("exit");
