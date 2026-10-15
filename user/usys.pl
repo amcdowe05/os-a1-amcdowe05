@@ -20,7 +20,8 @@ sub entry {
     print " ecall\n";
     print " ret\n";
 }
-	
+
+entry("trace");	
 entry("fork");
 entry("exit");
 entry("wait");
